@@ -22,6 +22,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   });
 })
+  .directive('textareaAuto', function ($timeout) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attr) {
+        console.log(element[0].nodeName)
+        //判断是否是    TEXTAREA
+        if("TEXTAREA"==element[0].nodeName&&attr.textareaAuto){
+          //自适应高度
+          $(element).autoTextarea()
+        }
+      }
+    };
+  })
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -49,6 +62,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+    .state('tab.upload', {
+      url: '/dash/upload',
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/upload.html',
+          controller: 'UploadCtrl'
+        }
+      }
+    })
 
   .state('tab.chats', {
       url: '/chats',
